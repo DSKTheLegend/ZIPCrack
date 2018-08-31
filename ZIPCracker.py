@@ -6,11 +6,11 @@ from threading import Thread
 def extractFile(zFile, password,verbose):
     try:
         zFile.extractall(pwd=password)
-        print('[+] Brute Force Successful : ' + password)
+        print('[+] Brute Force Successful : ' + password + '\n')
         return password
     except:
         if verbose is True:
-            print('[*] Brute Force Failed : ' + password)
+            print('[*] Brute Force Failed : ' + password + '\n')
           
         return
 def main():
@@ -33,10 +33,12 @@ def main():
         zFile = zipfile.ZipFile(zname)
     except:
         print("The ZIP file you provided cannot be loaded! ")    
+        quit()
     try:
         passFile = open(wname)
     except:
         print("The wordlist you provided cannot be loaded!")    
+        quit()
     for line in passFile.readlines():
         password = line.strip('\n')
         t = Thread(target=extractFile, args=(zFile, password,verbose))
